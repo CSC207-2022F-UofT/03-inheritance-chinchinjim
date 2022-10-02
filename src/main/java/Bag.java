@@ -13,6 +13,10 @@ public abstract class Bag {
      *       - an int named capacity
      *       - an array of Strings named contents
      */
+    private String color;
+    private int numberOfContents;
+    private int capacity;
+    private String[] contents;
 
 
 
@@ -26,6 +30,13 @@ public abstract class Bag {
      * be empty (e.g. numberOfContents is 0 and an empty String array for
      * its contents.)
      */
+    Bag(String bagColour, int bagCapacity){
+        this.color = bagColour;
+        this.capacity = bagCapacity;
+        this.contents = new String[bagCapacity];
+        this.numberOfContents = 0;
+
+    }
 
 
 
@@ -37,6 +48,15 @@ public abstract class Bag {
      *           - getNumberOfContents
      *           - getCapacity
      */
+    public String getColor(){
+        return this.color;
+    }
+    public int getNumberOfContents(){
+        return this.numberOfContents;
+    }
+    public int getCapacity(){
+        return this.capacity;
+    }
 
 
 
@@ -45,6 +65,9 @@ public abstract class Bag {
      * TODO: Create a setter function called setColor which sets the
      *       color of this bag to the given color.
      */
+    public void setColor(String givenColour){
+        this.color = givenColour;
+    }
 
 
 
@@ -60,9 +83,14 @@ public abstract class Bag {
      *       This method should return true if the item was added
      *       and false otherwise.
      */
-
-
-
+    public void addItem(String item){
+        int currNum = getNumberOfContents();
+        int currCap = getCapacity();
+        if ((currNum + 1) < currCap){
+            this.contents[currNum] = item;
+            this.numberOfContents++;
+        }
+    }
 
 
     /**
@@ -73,9 +101,18 @@ public abstract class Bag {
      *
      * If there are no items in this Bag, return null.
      *
-     * @return
+     * @return returns the last item that was added to this Bag. If none, will return null.
      */
 
+    public String popItem(){
+        String item;
+        int currNum = getNumberOfContents();
+        item = this.contents[currNum - 1];
+        this.contents[currNum - 1] = "";
+        this.numberOfContents--;
+
+        return item;
+    }
 
 
 
@@ -87,7 +124,7 @@ public abstract class Bag {
      */
     public void increaseCapacity(int n) {
         // TODO: Implement this method.
-
+        this.capacity += n;
     }
 
     /**
@@ -95,7 +132,7 @@ public abstract class Bag {
      * This method requires you to have created the private
      * instance variables mentioned above.
      *
-     * @return
+     * @return the details of this Bag
      */
     @Override
     public String toString() {
